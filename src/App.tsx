@@ -46,28 +46,20 @@ function AppContent() {
       return;
     }
 
-    // Root path - always show landing if not logged in
-    if (path === '/') {
-      if (!authLoading) {
-        if (user) {
-          checkUserHotel();
-        } else {
-          setAppState('landing');
-          setCheckingHotel(false);
-        }
-      }
+    // Wait for auth to load
+    if (authLoading) {
       return;
     }
 
-    // Other paths
-    if (!authLoading) {
-      if (user) {
-        checkUserHotel();
-      } else {
-        setAppState('landing');
-        setCheckingHotel(false);
-      }
+    // No user - show landing
+    if (!user) {
+      setAppState('landing');
+      setCheckingHotel(false);
+      return;
     }
+
+    // User exists - check hotel
+    checkUserHotel();
   }, [user, authLoading]);
 
   const checkUserHotel = async () => {
