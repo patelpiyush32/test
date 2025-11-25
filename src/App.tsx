@@ -68,17 +68,20 @@ function AppContent() {
   }, [user, authLoading]);
 
   const checkUserHotel = async () => {
-    if (!user) return;
+    if (!user) {
+      setCheckingHotel(false);
+      return;
+    }
 
     const { data } = await supabase
       .from('hotels')
       .select('slug')
       .eq('user_id', user.id)
-      .maybeSingle();
+      .limit(1);
 
-    if (data) {
+    if (data && data.length > 0) {
       setHasHotel(true);
-      setHotelSlug(data.slug);
+      setHotelSlug(data[0].slug);
       setAppState('dashboard');
     } else {
       setHasHotel(false);

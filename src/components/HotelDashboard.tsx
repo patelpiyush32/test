@@ -37,10 +37,10 @@ export default function HotelDashboard() {
       .from('hotels')
       .select('*')
       .eq('user_id', user.id)
-      .maybeSingle();
+      .limit(1);
 
-    if (data) {
-      setHotel(data);
+    if (data && data.length > 0) {
+      setHotel(data[0]);
     }
     setLoading(false);
   };
