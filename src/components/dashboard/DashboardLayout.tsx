@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import {
   LayoutDashboard,
   Globe,
-  Image,
   Bed,
   Calendar,
   CreditCard,
@@ -16,7 +15,10 @@ import {
   BarChart3,
   Tag,
   Gift,
-  ShoppingBag
+  ShoppingBag,
+  Users as UsersIcon,
+  ClipboardCheck,
+  DoorOpen
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -27,8 +29,6 @@ type DashboardLayoutProps = {
   onNavigate: (page: string) => void;
   hotelName?: string;
 };
-
-import { Users as UsersIcon, ClipboardCheck, DoorOpen } from 'lucide-react';
 
 const menuItems = [
   { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
@@ -63,28 +63,32 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-slate-50 flex">
+      {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out flex flex-col ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 lg:static`}
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out flex flex-col ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 lg:static premium-shadow-lg`}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
-          <div className="flex items-center space-x-2">
-            <Hotel className="h-8 w-8 text-blue-600" />
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-6 border-b border-slate-200 flex-shrink-0">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center">
+              <Hotel className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <h2 className="font-bold text-gray-900 truncate">{hotelName}</h2>
-              <p className="text-xs text-gray-500">Hotel Dashboard</p>
+              <h2 className="font-bold text-slate-900 truncate text-sm">{hotelName}</h2>
+              <p className="text-xs text-slate-500 font-medium">Hotel Dashboard</p>
             </div>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden text-gray-500 hover:text-gray-700"
+            className="lg:hidden text-slate-500 hover:text-slate-900"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
 
+        {/* Navigation */}
         <nav className="p-4 space-y-1 flex-1 overflow-y-auto">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -96,56 +100,60 @@ export default function DashboardLayout({
                   onNavigate(item.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${
-                  isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition font-medium ${isActive
+                    ? 'bg-slate-900 text-white'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  }`}
               >
                 <Icon className="h-5 w-5" />
-                <span className="font-medium">{item.label}</span>
+                <span>{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-gray-200 bg-white flex-shrink-0">
+        {/* Sign Out */}
+        <div className="p-4 border-t border-slate-200 bg-white flex-shrink-0">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition"
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition font-medium"
           >
             <LogOut className="h-5 w-5" />
-            <span className="font-medium">Sign Out</span>
+            <span>Sign Out</span>
           </button>
         </div>
       </div>
 
+      {/* Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
+      {/* Main Content */}
       <div className="flex-1">
-        <header className="bg-white border-b border-gray-200 px-4 lg:px-8 py-4">
+        {/* Header */}
+        <header className="bg-white border-b border-slate-200 px-6 lg:px-10 py-5 premium-shadow">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-gray-700 hover:text-gray-900"
+              className="lg:hidden text-slate-700 hover:text-slate-900"
             >
               <Menu className="h-6 w-6" />
             </button>
-            <h1 className="text-2xl font-bold text-gray-900 capitalize">
+            <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
               {menuItems.find(item => item.id === currentPage)?.label || 'Dashboard'}
             </h1>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 hidden md:block">{hotelName}</span>
+              <span className="text-sm text-slate-600 font-medium hidden md:block">{hotelName}</span>
             </div>
           </div>
         </header>
 
-        <main className="p-4 lg:p-8">
+        {/* Page Content */}
+        <main className="p-6 lg:p-10">
           {children}
         </main>
       </div>

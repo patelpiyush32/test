@@ -57,7 +57,7 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
       case 2:
         return formData.photos.length >= 3;
       case 3:
-        return formData.rooms.length > 0 && formData.rooms.every((r: {title: string, price: string}) => r.title && r.price);
+        return formData.rooms.length > 0 && formData.rooms.every((r: { title: string, price: string }) => r.title && r.price);
       case 4:
         return formData.paymentMethod && (formData.paymentMethod === 'gateway' || formData.upiId);
       case 5:
@@ -145,21 +145,21 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
   const StepComponent = steps[currentStep - 1].component;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+    <div className="min-h-screen bg-slate-50">
+      <div className="max-w-5xl mx-auto px-6 py-12">
+        {/* Progress Steps */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between">
             {steps.map((step, idx) => (
               <div key={step.number} className="flex items-center flex-1">
                 <div className="flex items-center">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition ${
-                      currentStep > step.number
-                        ? 'bg-green-600 text-white'
+                    className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold transition-all ${currentStep > step.number
+                        ? 'bg-slate-900 text-white'
                         : currentStep === step.number
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-300 text-gray-600'
-                    }`}
+                          ? 'bg-blue-600 text-white premium-shadow-lg'
+                          : 'bg-white text-slate-400 border-2 border-slate-200'
+                      }`}
                   >
                     {currentStep > step.number ? (
                       <CheckCircle2 className="h-6 w-6" />
@@ -167,11 +167,10 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
                       step.number
                     )}
                   </div>
-                  <div className="ml-3 hidden md:block">
+                  <div className="ml-4 hidden md:block">
                     <p
-                      className={`text-sm font-medium ${
-                        currentStep >= step.number ? 'text-gray-900' : 'text-gray-500'
-                      }`}
+                      className={`text-sm font-bold ${currentStep >= step.number ? 'text-slate-900' : 'text-slate-400'
+                        }`}
                     >
                       {step.title}
                     </p>
@@ -179,9 +178,8 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
                 </div>
                 {idx < steps.length - 1 && (
                   <div
-                    className={`flex-1 h-1 mx-4 transition ${
-                      currentStep > step.number ? 'bg-green-600' : 'bg-gray-300'
-                    }`}
+                    className={`flex-1 h-1 mx-6 rounded-full transition-all ${currentStep > step.number ? 'bg-slate-900' : 'bg-slate-200'
+                      }`}
                   />
                 )}
               </div>
@@ -189,16 +187,18 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        {/* Step Content */}
+        <div className="bg-white rounded-2xl premium-shadow-xl p-10 border border-slate-100">
           <StepComponent data={formData} onChange={updateFormData} />
 
-          <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+          {/* Navigation Buttons */}
+          <div className="flex justify-between mt-10 pt-8 border-t border-slate-100">
             <button
               onClick={handleBack}
               disabled={currentStep === 1}
-              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              className="px-6 py-3 border-2 border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center font-semibold group"
             >
-              <ArrowLeft className="h-5 w-5 mr-2" />
+              <ArrowLeft className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" />
               Back
             </button>
 
@@ -206,16 +206,16 @@ export default function OnboardingWizard({ onComplete }: OnboardingWizardProps) 
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                className="px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center font-semibold premium-shadow group"
               >
                 Next
-                <ArrowRight className="h-5 w-5 ml-2" />
+                <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
             ) : (
               <button
                 onClick={handleFinish}
                 disabled={!canProceed() || loading}
-                className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center font-semibold"
+                className="px-8 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center font-bold premium-shadow-lg"
               >
                 {loading ? (
                   <>

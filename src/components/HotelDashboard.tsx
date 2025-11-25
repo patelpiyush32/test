@@ -47,10 +47,10 @@ export default function HotelDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-slate-200 border-t-slate-900 mx-auto mb-4"></div>
+          <p className="text-slate-600 font-medium">Loading dashboard...</p>
         </div>
       </div>
     );
@@ -58,9 +58,13 @@ export default function HotelDashboard() {
 
   if (!hotel) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">No hotel found. Please complete onboarding.</p>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+        <div className="text-center bg-white rounded-2xl premium-shadow-xl p-12 border border-slate-100 max-w-md">
+          <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <span className="text-3xl">🏨</span>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight">No Hotel Found</h2>
+          <p className="text-slate-600">Please complete onboarding to create your hotel.</p>
         </div>
       </div>
     );

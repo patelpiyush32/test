@@ -23,7 +23,7 @@ function AppContent() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    
+
     // Public routes - no auth check needed
     if (path.startsWith('/hotel/')) {
       const slug = path.replace('/hotel/', '');
@@ -122,10 +122,10 @@ function AppContent() {
 
   if (authLoading || checkingHotel) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-slate-200 border-t-slate-900 mx-auto mb-4"></div>
+          <p className="text-slate-600 font-medium">Loading...</p>
         </div>
       </div>
     );
