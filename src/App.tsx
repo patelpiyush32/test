@@ -5,11 +5,12 @@ import AuthPage from './components/AuthPage';
 import OnboardingWizard from './components/OnboardingWizard';
 import SuccessPage from './components/SuccessPage';
 import HotelDashboard from './components/HotelDashboard';
+import AdminDashboard from './components/AdminDashboard';
 import PublicHotelWebsite from './components/PublicHotelWebsite';
 import GuestBookings from './components/GuestBookings';
 import { supabase } from './lib/supabase';
 
-type AppState = 'landing' | 'auth' | 'onboarding' | 'success' | 'dashboard' | 'public-hotel' | 'guest-bookings';
+type AppState = 'landing' | 'auth' | 'onboarding' | 'success' | 'dashboard' | 'admin' | 'public-hotel' | 'guest-bookings';
 
 function AppContent() {
   const { user, loading: authLoading } = useAuth();
@@ -26,6 +27,12 @@ function AppContent() {
       const slug = path.replace('/hotel/', '');
       setPublicHotelSlug(slug);
       setAppState('public-hotel');
+      setCheckingHotel(false);
+      return;
+    }
+
+    if (path === '/admin') {
+      setAppState('admin');
       setCheckingHotel(false);
       return;
     }
@@ -134,6 +141,10 @@ function AppContent() {
 
   if (appState === 'public-hotel' && publicHotelSlug) {
     return <PublicHotelWebsite hotelSlug={publicHotelSlug} />;
+  }
+
+  if (appState === 'admin') {
+    return <AdminDashboard />;
   }
 
   if (appState === 'guest-bookings') {

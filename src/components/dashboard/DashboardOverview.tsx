@@ -1,6 +1,7 @@
 import { Calendar, DollarSign, Star, ExternalLink, TrendingUp, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase, Hotel, Booking } from '../../lib/supabase';
+import { getHotelWebsiteUrl } from '../../lib/config';
 
 type DashboardOverviewProps = {
   hotelId: string;
@@ -54,7 +55,7 @@ export default function DashboardOverview({ hotelId }: DashboardOverviewProps) {
     }
   };
 
-  const websiteUrl = hotel ? `http://localhost:5173/hotel/${hotel.slug}` : '';
+  const websiteUrl = hotel ? getHotelWebsiteUrl(hotel.slug) : '';
 
   return (
     <div className="space-y-6">

@@ -1,5 +1,6 @@
 import { CheckCircle2, ExternalLink, Copy, QrCode, Edit, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { getHotelWebsiteUrl } from '../lib/config';
 
 type SuccessPageProps = {
   hotelSlug: string;
@@ -8,7 +9,7 @@ type SuccessPageProps = {
 
 export default function SuccessPage({ hotelSlug, onGoToDashboard }: SuccessPageProps) {
   const [copied, setCopied] = useState(false);
-  const websiteUrl = `http://localhost:5173/hotel/${hotelSlug}`;
+  const websiteUrl = getHotelWebsiteUrl(hotelSlug);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(websiteUrl);
