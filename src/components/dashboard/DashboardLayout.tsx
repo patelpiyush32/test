@@ -28,15 +28,20 @@ type DashboardLayoutProps = {
   hotelName?: string;
 };
 
+import { Users as UsersIcon, ClipboardCheck, DoorOpen } from 'lucide-react';
+
 const menuItems = [
   { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-  { id: 'website', label: 'Website Editor', icon: Globe },
-  { id: 'rooms', label: 'Rooms & Pricing', icon: Bed },
   { id: 'bookings', label: 'Bookings', icon: Calendar },
+  { id: 'checkinout', label: 'Check-In/Out', icon: DoorOpen },
+  { id: 'guests', label: 'Guests', icon: UsersIcon },
+  { id: 'rooms', label: 'Rooms', icon: Bed },
+  { id: 'housekeeping', label: 'Housekeeping', icon: ClipboardCheck },
   { id: 'packages', label: 'Packages', icon: Gift },
   { id: 'addons', label: 'Add-ons', icon: ShoppingBag },
   { id: 'promo-codes', label: 'Promo Codes', icon: Tag },
+  { id: 'website', label: 'Website', icon: Globe },
   { id: 'payments', label: 'Payments', icon: CreditCard },
   { id: 'reviews', label: 'Reviews', icon: Star },
   { id: 'notifications', label: 'Notifications', icon: Bell },

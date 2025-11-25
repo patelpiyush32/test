@@ -7,6 +7,9 @@ import AnalyticsDashboard from './dashboard/AnalyticsDashboard';
 import WebsiteEditor from './dashboard/WebsiteEditor';
 import RoomsManager from './dashboard/RoomsManager';
 import HotelBookingsManager from './dashboard/HotelBookingsManager';
+import CheckInOutManager from './dashboard/CheckInOutManager';
+import GuestManagement from './dashboard/GuestManagement';
+import HousekeepingManager from './dashboard/HousekeepingManager';
 import PackagesManager from './dashboard/PackagesManager';
 import AddonsManager from './dashboard/AddonsManager';
 import PromoCodesManager from './dashboard/PromoCodesManager';
@@ -71,12 +74,15 @@ export default function HotelDashboard() {
     >
       {currentPage === 'overview' && <DashboardOverview hotelId={hotel.id} />}
       {currentPage === 'analytics' && <AnalyticsDashboard hotelId={hotel.id} />}
-      {currentPage === 'website' && <WebsiteEditor hotelId={hotel.id} />}
-      {currentPage === 'rooms' && <RoomsManager hotelId={hotel.id} />}
       {currentPage === 'bookings' && <HotelBookingsManager hotelId={hotel.id} />}
+      {currentPage === 'checkinout' && <CheckInOutManager hotelId={hotel.id} />}
+      {currentPage === 'guests' && <GuestManagement hotelId={hotel.id} />}
+      {currentPage === 'rooms' && <RoomsManager hotelId={hotel.id} />}
+      {currentPage === 'housekeeping' && <HousekeepingManager hotelId={hotel.id} />}
       {currentPage === 'packages' && <PackagesManager hotelId={hotel.id} />}
       {currentPage === 'addons' && <AddonsManager hotelId={hotel.id} />}
       {currentPage === 'promo-codes' && <PromoCodesManager hotelId={hotel.id} />}
+      {currentPage === 'website' && <WebsiteEditor hotelId={hotel.id} />}
       {currentPage === 'payments' && <PaymentsManager hotelId={hotel.id} />}
       {currentPage === 'reviews' && <ReviewsManager hotelId={hotel.id} />}
       {currentPage === 'notifications' && <NotificationsPanel />}
