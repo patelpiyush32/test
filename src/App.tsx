@@ -51,15 +51,20 @@ function AppContent() {
       return;
     }
 
-    // No user - show landing
-    if (!user) {
+    // Root path - always show landing first
+    if (path === '/' && !user) {
       setAppState('landing');
       setCheckingHotel(false);
       return;
     }
 
     // User exists - check hotel
-    checkUserHotel();
+    if (user) {
+      checkUserHotel();
+    } else {
+      setAppState('landing');
+      setCheckingHotel(false);
+    }
   }, [user, authLoading]);
 
   const checkUserHotel = async () => {
