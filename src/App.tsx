@@ -43,10 +43,13 @@ function AppContent() {
       return;
     }
 
-    if (!authLoading && user) {
-      checkUserHotel();
-    } else if (!authLoading && !user) {
-      setCheckingHotel(false);
+    if (!authLoading) {
+      if (user) {
+        checkUserHotel();
+      } else {
+        setAppState('landing');
+        setCheckingHotel(false);
+      }
     }
   }, [user, authLoading]);
 
@@ -65,9 +68,7 @@ function AppContent() {
       setAppState('dashboard');
     } else {
       setHasHotel(false);
-      if (appState === 'landing') {
-        setAppState('onboarding');
-      }
+      setAppState('onboarding');
     }
     setCheckingHotel(false);
   };
