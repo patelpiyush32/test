@@ -23,16 +23,12 @@ function AppContent() {
 
   useEffect(() => {
     const path = window.location.pathname;
+    
+    // Public routes - no auth check needed
     if (path.startsWith('/hotel/')) {
       const slug = path.replace('/hotel/', '');
       setPublicHotelSlug(slug);
       setAppState('public-hotel');
-      setCheckingHotel(false);
-      return;
-    }
-
-    if (path === '/admin') {
-      setAppState('admin');
       setCheckingHotel(false);
       return;
     }
@@ -43,6 +39,27 @@ function AppContent() {
       return;
     }
 
+    // Admin route
+    if (path === '/admin') {
+      setAppState('admin');
+      setCheckingHotel(false);
+      return;
+    }
+
+    // Root path - always show landing if not logged in
+    if (path === '/') {
+      if (!authLoading) {
+        if (user) {
+          checkUserHotel();
+        } else {
+          setAppState('landing');
+          setCheckingHotel(false);
+        }
+      }
+      return;
+    }
+
+    // Other paths
     if (!authLoading) {
       if (user) {
         checkUserHotel();
